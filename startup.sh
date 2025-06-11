@@ -3,10 +3,20 @@
 # Exit immediately if a command exits with a non-zero status.
 set -e
 
-# Update package list and install ffmpeg and pip
-echo "Updating package list and installing dependencies (apt-utils, ffmpeg, python3-pip)..."
+# Set DEBIAN_FRONTEND to noninteractive to prevent interactive prompts
+export DEBIAN_FRONTEND=noninteractive
+
+# Update package list
+echo "Updating package list..."
 apt-get update -y
-apt-get install -y apt-utils ffmpeg python3-pip
+
+# Install apt-utils first to ensure debconf runs smoothly for subsequent packages
+echo "Installing apt-utils..."
+apt-get install -y apt-utils
+
+# Install other core dependencies
+echo "Installing ffmpeg and python3-pip..."
+apt-get install -y ffmpeg python3-pip
 
 # Install Python dependencies from requirements.txt
 if [ -f requirements.txt ]; then
