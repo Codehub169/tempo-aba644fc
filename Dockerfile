@@ -27,8 +27,8 @@ COPY --chown=appuser:appgroup requirements.txt ./
 
 # Install Python dependencies
 # Running as root to install packages system-wide. 
-# --no-cache-dir reduces image size by not storing the pip download cache.
-RUN python3 -m pip install --no-cache-dir -r requirements.txt
+RUN python3 -m pip install --upgrade pip # Ensure pip is up-to-date
+RUN python3 -m pip install --no-cache-dir -r requirements.txt # Install dependencies
 
 # Copy the rest of the application files (app.py and startup.sh)
 # Change ownership to the appuser.
